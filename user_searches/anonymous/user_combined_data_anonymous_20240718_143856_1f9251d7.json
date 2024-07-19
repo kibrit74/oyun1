@@ -1,0 +1,14 @@
+{
+    "product1": {
+        "name": "Galaxy S24+  ",
+        "google_data": {
+            "error": "Error: Page.evaluate: Execution context was destroyed, most likely because of a navigation - Galaxy S24+  "
+        }
+    },
+    "product2": {
+        "name": "POCO X5 Pro 5G ",
+        "google_data": {
+            "error": "Error: Page.evaluate: Execution context was destroyed, most likely because of a navigation - POCO X5 Pro 5G "
+        }
+    }
+}

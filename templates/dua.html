@@ -1,0 +1,272 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İnteraktif Dua Öğretici</title>
+</head>
+<body>
+    <h1>İnteraktif Dua Öğretici</h1>
+    <select id="dua-select">
+        <option value="">Dua seçin</option>
+    </select>
+    <br><br>
+    <div id="dua-text"></div>
+    <br>
+    <button id="play-dua">Duayı Dinle</button>
+    <br><br>
+    <button id="start-recording">Okumaya Başla</button>
+    <button id="stop-recording" disabled>Okumayı Bitir</button>
+    <br><br>
+    <audio id="audio-playback" controls style="display:none;"></audio>
+    <br>
+    <button id="analyze" disabled>Telaffuzu Analiz Et</button>
+    <div id="result"></div>
+
+    <script>
+    let mediaRecorder;
+    let audioChunks = [];
+    let selectedDua = '';
+
+    // Dua listesini yükle
+    const duas = JSON.parse('{{ duas | safe }}');
+    const selectElement = document.getElementById('dua-select');
+    duas.forEach(dua => {
+        const option = document.createElement('option');
+        option.value = dua;
+        option.textContent = dua.charAt(0).toUpperCase() + dua.slice(1);
+        selectElement.appendChild(option);
+    });
+
+    // Dua seçildiğinde
+    selectElement.onchange = () => {
+        selectedDua = selectElement.value;
+        if (selectedDua) {
+            fetch('/get_dua', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({dua_name: selectedDua})
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('dua-text').textContent = data.dua_text;
+            });
+        }
+    };
+
+    // Duayı dinle
+    document.getElementById('play-dua').onclick = () => {
+        const duaText = document.getElementById('dua-text').textContent;
+        fetch('/get_audio', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({text: duaText})
+        })
+        .then(response => response.blob())
+        .then(blob => {
+            const audioUrl = URL.createObjectURL(blob);
+            const audio = new Audio(audioUrl);
+            audio.play();
+        });
+    };
+
+    // Kayıt başlat
+    document.getElementById('start-recording').onclick = () => {
+        navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(stream => {
+                mediaRecorder = new MediaRecorder(stream);
+                mediaRecorder.start();
+
+                mediaRecorder.ondataavailable = (event) => {
+                    audioChunks.push(event.data);
+                };
+
+                mediaRecorder.onstop = () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    document.getElementById('audio-playback').src = audioUrl;
+                    document.getElementById('audio-playback').style.display = 'block';
+                    document.getElementById('analyze').disabled = false;
+                };
+
+                document.getElementById('start-recording').disabled = true;
+                document.getElementById('stop-recording').disabled = false;
+            });
+    };
+
+    // Kayıt durdur
+    document.getElementById('stop-recording').onclick = () => {
+        mediaRecorder.stop();
+        document.getElementById('start-recording').disabled = false;
+        document.getElementById('stop-recording').disabled = true;
+    };
+
+    // Telaffuzu analiz et
+    document.getElementById('analyze').onclick = () => {
+        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+        const formData = new FormData();
+        formData.append('audio', audioBlob, 'recording.wav');
+        formData.append('text', document.getElementById('dua-text').textContent);
+
+        fetch('/analyze', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('result').innerHTML = `
+                <h3>Analiz Sonuçları:</h3>
+                <p><strong>Tanınan Metin:</strong> ${data.recognized_text}</p>
+                <p><strong>Doğru Okunan Kısımlar:</strong> ${data.correct_parts}</p>
+                <p><strong>Hatalı Okunan Kısımlar:</strong> ${data.errors}</p>
+                <p><strong>Genel Öneriler:</strong> ${data.suggestions}</p>
+            `;
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    };
+    </script>
+</body>
+=======
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İnteraktif Dua Öğretici</title>
+</head>
+<body>
+    <h1>İnteraktif Dua Öğretici</h1>
+    <select id="dua-select">
+        <option value="">Dua seçin</option>
+    </select>
+    <br><br>
+    <div id="dua-text"></div>
+    <br>
+    <button id="play-dua">Duayı Dinle</button>
+    <br><br>
+    <button id="start-recording">Okumaya Başla</button>
+    <button id="stop-recording" disabled>Okumayı Bitir</button>
+    <br><br>
+    <audio id="audio-playback" controls style="display:none;"></audio>
+    <br>
+    <button id="analyze" disabled>Telaffuzu Analiz Et</button>
+    <div id="result"></div>
+
+    <script>
+    let mediaRecorder;
+    let audioChunks = [];
+    let selectedDua = '';
+
+    // Dua listesini yükle
+    const duas = JSON.parse('{{ duas | safe }}');
+    const selectElement = document.getElementById('dua-select');
+    duas.forEach(dua => {
+        const option = document.createElement('option');
+        option.value = dua;
+        option.textContent = dua.charAt(0).toUpperCase() + dua.slice(1);
+        selectElement.appendChild(option);
+    });
+
+    // Dua seçildiğinde
+    selectElement.onchange = () => {
+        selectedDua = selectElement.value;
+        if (selectedDua) {
+            fetch('/get_dua', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({dua_name: selectedDua})
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('dua-text').textContent = data.dua_text;
+            });
+        }
+    };
+
+    // Duayı dinle
+    document.getElementById('play-dua').onclick = () => {
+        const duaText = document.getElementById('dua-text').textContent;
+        fetch('/get_audio', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({text: duaText})
+        })
+        .then(response => response.blob())
+        .then(blob => {
+            const audioUrl = URL.createObjectURL(blob);
+            const audio = new Audio(audioUrl);
+            audio.play();
+        });
+    };
+
+    // Kayıt başlat
+    document.getElementById('start-recording').onclick = () => {
+        navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(stream => {
+                mediaRecorder = new MediaRecorder(stream);
+                mediaRecorder.start();
+
+                mediaRecorder.ondataavailable = (event) => {
+                    audioChunks.push(event.data);
+                };
+
+                mediaRecorder.onstop = () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    document.getElementById('audio-playback').src = audioUrl;
+                    document.getElementById('audio-playback').style.display = 'block';
+                    document.getElementById('analyze').disabled = false;
+                };
+
+                document.getElementById('start-recording').disabled = true;
+                document.getElementById('stop-recording').disabled = false;
+            });
+    };
+
+    // Kayıt durdur
+    document.getElementById('stop-recording').onclick = () => {
+        mediaRecorder.stop();
+        document.getElementById('start-recording').disabled = false;
+        document.getElementById('stop-recording').disabled = true;
+    };
+
+    // Telaffuzu analiz et
+    document.getElementById('analyze').onclick = () => {
+        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+        const formData = new FormData();
+        formData.append('audio', audioBlob, 'recording.wav');
+        formData.append('text', document.getElementById('dua-text').textContent);
+
+        fetch('/analyze', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('result').innerHTML = `
+                <h3>Analiz Sonuçları:</h3>
+                <p><strong>Tanınan Metin:</strong> ${data.recognized_text}</p>
+                <p><strong>Doğru Okunan Kısımlar:</strong> ${data.correct_parts}</p>
+                <p><strong>Hatalı Okunan Kısımlar:</strong> ${data.errors}</p>
+                <p><strong>Genel Öneriler:</strong> ${data.suggestions}</p>
+            `;
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    };
+    </script>
+</body>
+>>>>>>> e00910b5e17186036c7b59cf3b51aea5ec7bfc31
+</html>

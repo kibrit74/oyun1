@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+
+{% block title %}...Ürün Kıyaslama/Karşılaştırma...{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/css/styles.css">
+<div class="form-section">
+    <h2>Ürün Kıyaslama/Karşılaştırma</h2>
+    <p>Ürün karşılaştırma hizmetimizi kullanmaya karar verdiğiniz için teşekkür ederiz. Sizden ricamız, işlemi daha etkili hale getirmek ve size en iyi sonuçları sunabilmek adına iki önemli kurala dikkat etmenizdir:</p>
+    <p>İlk olarak, karşılaştırmak istediğiniz ürünlerin resimlerini bize göndermeyi unutmayınız. İki resim alanınında doldurulmaması durumunda sistem hata verecektir. Bu, yapay zekanın ürünlerin teknik ve fiziksel özelliklerini en etkili şekilde analiz edebilmesine katkı sağlayacaktır.</p>
+    <p>Sadece resimlerle yetinmeyin. Daha kesin ve güçlü sonuçlar elde etmek için ürün isimlerini ve kodlarını da eklemeyi ihmal etmeyiniz. Bu, yapay zekanın, sizin için en uygun ürünü belirleme sürecinde daha fazla bilgiye erişim sağlamasına yardımcı olacaktır.</p>
+    <p>Bu kurallara uyduğunuz takdirde, alışveriş deneyiminizin daha doğru ve tatmin edici olacağını garanti edebiliriz. Hadi, başlayalım ve size en uygun ürünü bulalım!</p>
+
+    <form id="comparisonForm" enctype="multipart/form-data">
+        <label for="image1">Resim 1 Seçin:</label>
+        <div id="dropZone1" class="drop-zone" onclick="document.getElementById('image1').click()">
+            <img src="https://img.icons8.com/ios/50/000000/plus-math.png" alt="plus icon">
+        </div>
+        <input type="file" id="image1" name="image1" accept="image/*" required onchange="previewImage(event, 'preview1')" style="display:none;">
+        <div class="preview-container">
+            <img id="preview1" class="preview-image" alt="Preview Resim 1">
+        </div>
+
+        <label for="product_name1">Ürün Adı veya Kodu (isteğe bağlı):</label>
+        <input type="text" id="product_name1" name="product_name1" placeholder="Ürün adı veya kodu girin" required>
+
+        <label for="image2">Resim 2 Seçin:</label>
+        <div id="dropZone2" class="drop-zone" onclick="document.getElementById('image2').click()">
+            <img src="https://img.icons8.com/ios/50/000000/plus-math.png" alt="plus icon">
+        </div>
+        <input type="file" id="image2" name="image2" accept="image/*" required onchange="previewImage(event, 'preview2')" style="display:none;">
+        <div class="preview-container">
+            <img id="preview2" class="preview-image" alt="Preview Resim 2">
+        </div>
+
+        <label for="product_name2">Ürün Adı veya Kodu (isteğe bağlı):</label>
+        <input type="text" id="product_name2" name="product_name2" placeholder="Ürün adı veya kodu girin" required>
+
+        <button type="button" onclick="generateContent()">Gönder</button>
+    </form>
+
+    <p></p>
+    <div id="loading" class="ai-loader" style="display: none;">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path id="brainPath" d="M100 30 C130 30 150 50 150 80 C150 110 130 130 100 130 C70 130 50 110 50 80 C50 50 70 30 100 30" 
+                  fill="none" stroke="#87CEFA" stroke-width="3"/>
+            
+            <line x1="75" y1="60" x2="125" y2="100" stroke="#87CEFA" stroke-width="1"/>
+            <line x1="75" y1="100" x2="125" y2="60" stroke="#87CEFA" stroke-width="1"/>
+            <line x1="100" y1="40" x2="100" y2="120" stroke="#87CEFA" stroke-width="1"/>
+            
+            <circle class="node" cx="75" cy="60" r="5" fill="#87CEFA"/>
+            <circle class="node" cx="125" cy="60" r="5" fill="#87CEFA"/>
+            <circle class="node" cx="75" cy="100" r="5" fill="#87CEFA"/>
+            <circle class="node" cx="125" cy="100" r="5" fill="#87CEFA"/>
+            <circle class="node" cx="100" cy="40" r="5" fill="#87CEFA"/>
+            <circle class="node" cx="100" cy="120" r="5" fill="#87CEFA"/>
+            
+            <text id="loadingText" x="50" y="180">lütfen bekleyiniz...</text>
+        </svg>
+    </div>
+    
+    <div id="result" class="comparison-result"></div>
+</div>
+
+<style>
+    .ai-loader {
+        width: 200px;
+        height: 200px;
+        margin: 10px auto;
+    }
+    #brainPath {
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+        animation: dash 5s linear alternate infinite;
+    }
+    @keyframes dash {
+        from { stroke-dashoffset: 1000; }
+        to { stroke-dashoffset: 0; }
+    }
+    .node {
+        animation: pulse 2s ease-in-out infinite alternate;
+    }
+    @keyframes pulse {
+        0% { r: 5; }
+        100% { r: 7; }
+    }
+    #loadingText {
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        animation: colorChange 4s linear infinite alternate;
+    }
+    @keyframes colorChange {
+        0% { fill: #87CEFA; }
+        100% { fill: #FF6347; }
+    }
+    .comparison-result {
+        text-align: left;
+        white-space: pre-wrap;
+        font-family: Arial, sans-serif;
+        color: #ffffff;
+        line-height: 1.6;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: justify;
+    }
+</style>
+
+<script>
+    function previewImage(event, previewId) {
+        var reader = new FileReader();
+        reader.onload = function(){
+            var output = document.getElementById(previewId);
+            output.src = reader.result;
+            output.style.display = 'block';
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function generateContent() {
+        document.getElementById("result").innerText = "";
+        document.getElementById("loading").style.display = "flex";
+        document.getElementById("loadingText").textContent = "Ürün algılanıyor...";
+
+        var formData = new FormData(document.getElementById("comparisonForm"));
+
+        fetch("/compare-content", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("loadingText").textContent = "Analiz yapılıyor...";
+
+            setTimeout(() => {
+                document.getElementById("loading").style.display = "none";
+                document.getElementById("result").innerText = data.content || "Bir hata oluştu. Lütfen tekrar deneyiniz.";
+            }, 2000);
+        })
+        .catch(error => {
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("result").innerText = "Bir hata oluştu: " + error;
+        });
+    }
+
+    document.getElementById('dropZone1').addEventListener('dragover', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.currentTarget.classList.add('dragover');
+    });
+
+    document.getElementById('dropZone1').addEventListener('dragleave', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.currentTarget.classList.remove('dragover');
+    });
+
+    document.getElementById('dropZone1').addEventListener('drop', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.currentTarget.classList.remove('dragover');
+        var files = event.dataTransfer.files;
+        document.getElementById('image1').files = files;
+        previewImage({ target: document.getElementById('image1') }, 'preview1');
+    });
+
+    document.getElementById('dropZone2').addEventListener('dragover', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.currentTarget.classList.add('dragover');
+    });
+
+    document.getElementById('dropZone2').addEventListener('dragleave', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.currentTarget.classList.remove('dragover');
+    });
+
+    document.getElementById('dropZone2').addEventListener('drop', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.currentTarget.classList.remove('dragover');
+        var files = event.dataTransfer.files;
+        document.getElementById('image2').files = files;
+        previewImage({ target: document.getElementById('image2') }, 'preview2');
+    });
+</script>
+{% endblock %}

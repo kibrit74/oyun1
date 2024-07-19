@@ -1,0 +1,119 @@
+{
+    "product1": {
+        "name": "",
+        "google_data": {
+            "error": "Error: Timeout 30000ms exceeded.\n=========================== logs ===========================\nwaiting for selector \"h3\" to be visible\n============================================================ - "
+        }
+    },
+    "product2": {
+        "name": "iPhone 15 Pro 128 Gb Natural Titanium ",
+        "google_data": {
+            "reviews": [
+                {
+                    "star": "5 üzerinden 5 yıldız",
+                    "date": "17 Şubat 2024 Cumartesi",
+                    "text": "Ürün orjinal, Apple TR Garantili, fakat kargo firması ya çok kötü ya dabireysel kurye gibi getirdikleri için bu kadar basit geldi. küçük birşeffaf poşete sarıp göndermişler, 2 kat bile değil. Muhtemelen bireyselkurye mantığında gönderdikleri için o şekilde geldi, zira başka biraçıklaması olamaz. ",
+                    "author": "n11.com"
+                },
+                {
+                    "star": "5 üzerinden 5 yıldız",
+                    "date": "09 Haziran 2024 Pazar",
+                    "text": "Ürün cok güzel ( Troyapple çok güzel paketlenmiş ellerine sağlık, iphone15 pro gelirsekte apple kaliteli bir marka ama ekran küçük geldi azgözüme oyun için idare eder (iphone 15 yerine pro daha mantıklı işlemcive ekran tazeleme oranı farkı var, hissiyat olarak hafif kibar telefon ",
+                    "author": "n11.com"
+                },
+                {
+                    "star": "5 üzerinden 5 yıldız",
+                    "date": "20 Şubat 2024 Salı",
+                    "text": "Kargolama ve hızı harikaydı. Telefonu eşime aldım özelliklerinianlatmaya gerek yok. Eşim iPhone11 den geçiş yaptı. 11 e göre birazboyutu küçük geldi. Biraz büyük isteyenler pro max tercih edebilir. ",
+                    "author": "n11.com"
+                },
+                {
+                    "star": "5 üzerinden 5 yıldız",
+                    "date": "06 Haziran 2024 Perşembe",
+                    "text": "Iphone yani ağa, fazla söze gerek yok. Ios 18 iple çekiyorum ne yeniözellikler getirecek diye. 6s hala kullanılıyor ve alınıp satılıyor oderece sağlam ve kasmasız donmasız olmasını siz diüşünün 120 hz efsana ",
+                    "author": "n11.com"
+                },
+                {
+                    "star": "5 üzerinden 5 yıldız",
+                    "date": "19 Şubat 2024 Pazartesi",
+                    "text": "Cihaz sorunsuz geldi fakat paketleme emanet şekilde. Kutulayıpgönderirseniz daha iyi olur malum kargolar ordan oraya atabiliyor. Onunharici n11 güvenilirliği sorunsuz zaten. ",
+                    "author": "n11.com"
+                },
+                {
+                    "star": "5 üzerinden 5 yıldız",
+                    "date": "28 Şubat 2024 Çarşamba",
+                    "text": "Ürün zamanında geldi. Ancak paketleme çok özensizdi. Böyle bir ürünündaha özenli paketlenmesi gerekirdi ",
+                    "author": "n11.com"
+                },
+                {
+                    "star": "5 üzerinden 1 yıldız",
+                    "date": "22 Ocak 2024 Pazartesi",
+                    "text": "Çok kötü bir paketlemeydi. Kurumsal bir firmayı bırakın ekmek poşetibile daha güvenli diyebiliriz. ",
+                    "author": "n11.com"
+                },
+                {
+                    "star": "5 üzerinden 5 yıldız",
+                    "date": "19 Şubat 2024 Pazartesi",
+                    "text": "Ürün sağlam ve çok hızlı geldi. Cuma akşam sipariş ettik cumartesi sabahelimizdeydi. Kargolama özenliydi. Telefonun Apple da kaydı var vesipariş verdiğimiz gün garantisi başlamış. Güvenilir ve iyi biralışveriş oldu ",
+                    "author": "n11.com"
+                },
+                {
+                    "star": "5 üzerinden 5 yıldız",
+                    "date": "15 Haziran 2024 Cumartesi",
+                    "text": "güvenli satıcı. ürün tek parça geldi sorunsuz bir alışveriş oldu.teşekkür ederim. ",
+                    "author": "n11.com"
+                },
+                {
+                    "star": "5 üzerinden 5 yıldız",
+                    "date": "01 Haziran 2024 Cumartesi",
+                    "text": "1 günde elime ulaştı . Sorunsuz kuru fatura cihaz . Teşekkürler Troya ",
+                    "author": "n11.com"
+                }
+            ],
+            "product_details": {
+                "Kamera Çözünürlüğü 20 MP ve üstü": "20 MP ve üstü",
+                "Dahili Hafıza 128 GB": "128 GB",
+                "Ekran Boyutu 6,1 inç": "6,1 inç",
+                "Mobil Bağlantı Hızı 5G": "5G",
+                "RAM Kapasitesi 8 GB": "8 GB",
+                "Pil Gücü (mAh) 3000 - 4000": "3000 - 4000",
+                "Ön Kamera Çözünürlüğü 12 MP": "12 MP",
+                "Ön Kamera Çözünürlük Aralığı 40 - 60 MP": "40 - 60 MP",
+                "Arka Kamera Sayısı 3": "3",
+                "Bağlantılar Wi-Fi": "Wi-Fi",
+                "Ön Kamera Flaş Yok": "Yok",
+                "Kablosuz Şarj Yok": "Yok",
+                "İşletim Sistemi iOS": "iOS",
+                "Ekran Boyut Aralığı 6'' - 6.5''": "6'' - 6.5''",
+                "Yüz Tanıma Var": "Var",
+                "Görüntü Teknolojisi OLED": "OLED",
+                "Ekran Teknolojisi QLED": "QLED",
+                "Ekran Cinsi OLED": "OLED",
+                "Ön Kamera Sayısı 1": "1",
+                "Dokunmatik Ekran Var": "Var",
+                "Ekran Çözünürlüğü QHD+": "QHD+",
+                "Ana Kamera Flaş Var": "Var",
+                "Çift Hat Var": "Var",
+                "Bluetooth Var": "Var",
+                "Batarya Kapasitesi Aralığı 3000-3500 mAh": "3000-3500 mAh",
+                "Ana Kamera Çözünürlük Aralığı 40 - 60 MP": "40 - 60 MP",
+                "Şarj Hızı 60-80 W": "60-80 W",
+                "Kulaklık Girişi USB Type-C": "USB Type-C",
+                "Parmak İzi Okuyucu Var": "Var",
+                "Ekran Yenileme Hızı 60 Hz": "60 Hz",
+                "Radio Yok": "Yok",
+                "Şarj Girişi USB Type-C": "USB Type-C",
+                "NFC Var": "Var",
+                "Arttırılabilir Hafıza (Hafıza Kartı Desteği) Var": "Var",
+                "CPU Aralık 2.5-3.2 GHz": "2.5-3.2 GHz",
+                "Görüntülü Konuşma Var": "Var",
+                "Video Kayıt Çözünürlüğü 4320p (Ultra HD) 8K": "4320p (Ultra HD) 8K",
+                "Suya/Toza Dayanıklılık Var": "Var",
+                "GPS Var": "Var",
+                "Renk Beyaz": "Beyaz",
+                "Yapay Zeka Var": "Var",
+                "rating": "Değerlendirme puanı bulunamadı"
+            }
+        }
+    }
+}

@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %}Form Sayfası{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/css/styles.css">
+<div class="container">
+  
+        <h2>Form Sayfası</h2>
+        
+        {% if current_user.is_authenticated %}
+        <ul id="sorular" class="soru-listesi">
+            {% for soru in sorular|reverse %}
+            <li class="soru-item {% if loop.index > 20 %}gizli-soru{% endif %}">
+                <div class="soru-content">
+                    <strong>{{ soru.soru_sahibi_adi }}</strong>: {{ soru.soru_icerik }}
+                </div>
+                <button class="cevap-yaz-btn" data-soru-id="{{ soru.id }}">Cevap Yaz</button>
+                <div class="cevap-form" id="cevap-form-{{ soru.id }}">
+                    <form method="POST" action="{{ url_for('cevap_ver', soru_id=soru.id) }}">
+                        <input type="hidden" name="cevap_sahibi_adi" value="{{ current_user.username }}">
+                        <textarea name="cevap_icerik" placeholder="Cevabınızı buraya yazın" required></textarea>
+                        <button type="submit">Cevap Ver</button>
+                    </form>
+                </div>
+                <ul class="cevaplar" id="cevaplar-{{ soru.id }}">
+                    {% for cevap in cevaplar if cevap.soru_id == soru.id %}
+                    <li class="cevap-item">
+                        <strong>{{ cevap.cevap_sahibi_adi }}</strong>: {{ cevap.cevap_icerik }}
+                        {% if cevap.user == current_user %}
+                        <button class="cevap-sil-btn" data-cevap-id="{{ cevap.id }}">Sil</button>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <ul id="sorular" class="soru-listesi">
+            {% for soru in sorular|reverse %}
+            <li class="soru-item {% if loop.index > 20 %}gizli-soru{% endif %}">
+                <div class="soru-content">
+                    <strong>{{ soru.soru_sahibi_adi }}</strong>: {{ soru.soru_icerik }}
+                </div>
+                <button class="cevap-yaz-btn" data-soru-id="{{ soru.id }}">Cevap Yaz</button>
+                <div class="cevap-form" id="cevap-form-{{ soru.id }}">
+                    <form method="POST" action="{{ url_for('cevap_ver', soru_id=soru.id) }}">
+                        <input type="text" name="cevap_sahibi_adi" placeholder="Kullanıcı Adı" required>
+                        <textarea name="cevap_icerik" placeholder="Cevabınızı buraya yazın" required></textarea>
+                        <button type="submit">Cevap Ver</button>
+                    </form>
+                </div>
+                <ul class="cevaplar" id="cevaplar-{{ soru.id }}">
+                    {% for cevap in cevaplar if cevap.soru_id == soru.id %}
+                    <li class="cevap-item">
+                        <strong>{{ cevap.cevap_sahibi_adi }}</strong>: {{ cevap.cevap_icerik }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endfor %}
+
+            {% if sorular|length > 20 %}
+            <button id="daha-fazla-btn" class="daha-fazla-btn">Daha Fazla Soru Göster</button>
+            {% endif %}
+        </ul>
+       
+
+        <p>
+
+        </p>
+        <form method="POST" action="{{ url_for('soru_sor') }}" id="soru-form" class="soru-form">
+            <input type="text" name="soru_sahibi_adi" placeholder="Adınız" required>
+            <textarea name="soru_icerik" placeholder="Sorunuzu buraya yazın" required></textarea>
+            
+            <button id="soru-yaz-btn" class="soru-yaz-btn">Soru Gönder</button>
+        </form>
+        {% endif %}
+        
+        
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Cevap formlarını gizle
+    document.querySelectorAll('.cevap-form').forEach(form => form.style.display = 'none');
+
+    // Cevap yaz butonlarına tıklama olayı ekle
+    document.querySelectorAll('.cevap-yaz-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const soruId = this.getAttribute('data-soru-id');
+            const form = document.getElementById(`cevap-form-${soruId}`);
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        });
+    });
+
+    // Cevap silme işlemi
+    document.querySelectorAll('.cevap-sil-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const cevapId = this.getAttribute('data-cevap-id');
+            if (confirm('Bu cevabı silmek istediğinizden emin misiniz?')) {
+                // Burada sunucuya silme isteği gönderilecek
+                console.log('Cevap siliniyor:', cevapId);
+            }
+        });
+    });
+
+    // Daha fazla soru gösterme
+    const dahaFazlaBtn = document.getElementById('daha-fazla-btn');
+    if (dahaFazlaBtn) {
+        dahaFazlaBtn.addEventListener('click', function () {
+            document.querySelectorAll('.gizli-soru').forEach(soru => {
+                soru.classList.remove('gizli-soru');
+            });
+            this.style.display = 'none';
+        });
+    }
+});
+</script>
+{% endblock %}

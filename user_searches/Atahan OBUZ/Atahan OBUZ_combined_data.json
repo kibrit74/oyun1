@@ -1,0 +1,14 @@
+{
+    "product1": {
+        "name": "",
+        "google_data": {
+            "error": "Error: Invalid data for "
+        }
+    },
+    "product2": {
+        "name": "",
+        "google_data": {
+            "error": "Error: Invalid data for "
+        }
+    }
+}

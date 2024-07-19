@@ -1,0 +1,14 @@
+{
+    "product1": {
+        "name": "iPhone 12",
+        "google_data": {
+            "error": "Error: Invalid data for iPhone 12"
+        }
+    },
+    "product2": {
+        "name": "Samsung Galaxy S21",
+        "google_data": {
+            "error": "Error: Invalid data for Samsung Galaxy S21"
+        }
+    }
+}

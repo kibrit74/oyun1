@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}...Anasayfa...{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yapay Zeka Destekli Ürün Değerlendirme Uygulaması</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="/static/css/animations.css">
+</head>
+<body>
+    <div class="hero-header">
+        <h1>Alışverişin en keyifli hali</h1>
+        <p>Yapay zeka destekli, nokta atış ürün arama motoru.</p>
+        <div class="search-bar">
+            <button onclick="aramaYonlendir()">Aramaya Başla</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <img src="/static/YapayZekaunscreen.gif" alt="Yapay Zeka Uygulaması">
+        <div class="section-content">
+            <h2>Nedir?</h2>
+            <p>FindCompareAI, modern tüketicilerin alışveriş deneyimini optimize etmek için tasarlanmış yenilikçi bir mobil uygulamadır. İleri düzey yapay zeka teknolojisini kullanarak, kullanıcılarına daha bilinçli ve verimli alışveriş kararları alma imkanı sunar.</p>
+            <p>Temel Özellikler ve Faydalar:Görsel Tanıma Teknolojisi: • Kullanıcılar tarafından yüklenen ürün fotoğraflarını anında analiz eder. • Yüksek doğruluk oranıyla ürün özelliklerini tespit eder.</p>
+            <p>>Kapsamlı Veri Analizi: • Geniş veri tabanımızdaki kullanıcı yorumlarını ve değerlendirmelerini tarar. • Ürünle ilgili olumlu ve olumsuz görüşleri özetler.</p>
+            <p>Fiyat Optimizasyonu: • Çeşitli satış kanallarını tarayarak en uygun fiyatları belirler. • Fiyat-performans analizleri sunar.</p>
+            <p>Zaman Verimliliği: 
+                • Kullanıcıların araştırma süresini önemli ölçüde azaltır.
+                • Hızlı ve etkili karar verme sürecini destekler.</p>
+            <p>Finansal Tasarruf:
+                • En uygun fiyat-kalite dengesini sağlayarak bütçe yönetimine katkıda bulunur.
+                • Gereksiz harcamaları önlemeye yardımcı olur.</p>
+            <p>Kişiselleştirilmiş Öneriler:
+                • Kullanıcı tercihlerine ve geçmiş alışverişlere dayanarak özelleştirilmiş ürün önerileri sunar.</p>
+            <p>FindCompareAI tüketicilerin alışveriş sürecini daha verimli, ekonomik ve bilgi temelli hale getirmeyi amaçlamaktadır. Uygulamamız, modern ticaretin karmaşıklığında kullanıcılarımıza rehberlik ederek, onların daha bilinçli ve tatmin edici alışveriş deneyimleri yaşamalarını sağlar.
+                Hemen şimdi FotoAlış'ı indirin ve alışveriş alışkanlıklarınızı dönüştürün. Daha akıllı alışverişin gücünü keşfedin.</p>
+        </div>
+    </div>
+
+    <div class="section reverse">
+        <img src="/static/-Yapay-Zeka--unscreen.gif" alt="Nasıl Çalışır">
+        <div class="section-content">
+            <h2>Nasıl Çalışır?</h2>
+            <p>Akıllı Alışverişin Yeni Çağı: 5 Kolay Adımda Mükemmel Seçimler!</p>
+            <p>Hızlı ve Güvenli Üyelik
+                Yolculuğunuz buradan başlıyor! Sadece birkaç tıklamayla aramıza katılın. "Üye Ol" butonuyla açılan sayfada, kişisel bilgilerinizi güvenle girin ve anında alışveriş dünyamıza adım atın.</p>
+            <p>Görsel Keşif
+                Rüyalarınızdaki ürünü mü gördünüz? Hemen fotoğrafını çekip yükleyin! İleri teknoloji yapay zeka modelimiz, gönderdiğiniz görseli anında analiz ederek ürünü tanımlayacak ve size özel bir alışveriş macerası başlatacak.</p>
+            <p>Derin Analiz ve İçgörüler
+                Yapay zeka asistanımız, binlerce kullanıcı yorumunu ve değerlendirmesini saniyeler içinde tarayarak size benzersiz içgörüler sunar. Ürünün artıları, eksileri ve gizli kalmış özellikleri hakkında detaylı bilgiler edinerek, bilinçli bir seçim yapmanın keyfini yaşayın.</p>
+            <p>Akıllı Karşılaştırma ve Öneriler
+                Sonuç sayfamızda, yapay zeka analizinin meyvelerini toplayın! En uygun fiyatları, en yüksek kaliteyi ve kullanıcıların en çok beğendiği özellikleri tek bir bakışta görün. Size özel oluşturulan önerilerle, ihtiyaçlarınıza en uygun ürünü kolayca seçin.</p>
+            <p>Optimum Fayda: Zaman ve Bütçe Dostu Alışveriş
+                Yapay zeka destekli alışveriş rehberimizle, saatler süren araştırmaları dakikalara indirgeyin. Hem zamanınızı hem de bütçenizi akıllıca yöneterek, pişmanlık yaşamadan alışverişin tadını çıkarın. Artık her alışverişiniz, bilinçli bir yatırıma dönüşecek!   </p>
+        </div>
+    </div>
+
+    <div class="info-boxes">
+        <div class="info-box">
+            <img src="/static/ikon1.png" alt="Kolay Kullanım">
+            <h3>Kolay Kullanım</h3>
+            <p>Basit ve kullanıcı dostu arayüz ile alışverişinizi kolayca yönetin.</p>
+        </div>
+        <div class="info-box">
+            <img src="/static/ikon2.png" alt="Hızlı İşlem">
+            <h3>Hızlı İşlem</h3>
+            <p>Yapay zeka desteği ile hızlı ve doğru ürün analizleri.</p>
+        </div>
+        <div class="info-box">
+            <img src="/static/ikon3.png" alt="Nokta Atış Ürün Bulma">
+            <h3>Nokta Atış Ürün Bulma</h3>
+            <p>Yapay zeka destekli alışveriş rehberimizle, alışveriş yaparken hem zamandan hem de paradan tasarruf edin.</p>
+        </div>
+        <div class="info-box">
+            <img src="/static/ikon4.png" alt="Ara, Kıyasla, Karşılaştır">
+            <h3>Ara, Kıyasla, Karşılaştır</h3>
+            <p>Yeni nesil Ürün arama motoru ile almayı düşündüğünüz ürün ile ilgili aklınızda soru işareti kalmayacak.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const boxes = document.querySelectorAll('.info-box');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            boxes.forEach(box => observer.observe(box));
+        });
+
+        function aramaYonlendir() {
+            window.location.href = "/profildata";
+        }
+        
+    </script>
+</body>
+</html>
+{% endblock %}

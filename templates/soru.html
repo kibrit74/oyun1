@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+
+{% block title %}...Ürün Arama...{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yapay Zeka Destekli Ürün Değerlendirme Uygulaması</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="/static/css/animations.css">
+    <style>
+        .ai-loader {
+            width: 200px;
+            height: 200px;
+            margin: 10px auto;
+        }
+        #brainPath {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: dash 5s linear alternate infinite;
+        }
+        @keyframes dash {
+            from { stroke-dashoffset: 1000; }
+            to { stroke-dashoffset: 0; }
+        }
+        .node {
+            animation: pulse 2s ease-in-out infinite alternate;
+        }
+        @keyframes pulse {
+            0% { r: 5; }
+            100% { r: 7; }
+        }
+        #loadingText {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            animation: colorChange 4s linear infinite alternate;
+        }
+        @keyframes colorChange {
+            0% { fill: #87CEFA; }
+            100% { fill: #FF6347; }
+        }
+        .comparison-result {
+            text-align: left;
+            white-space: pre-wrap;
+            font-family: Arial, sans-serif;
+            color: #ffffff;
+            line-height: 1.6;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: justify;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-section">
+        <h2>Ürün Değerlendirme</h2>
+        <p>Sadece bir fotoğraf yükleyin ve 'Gönder' butonuna tıklayarak ürün değerlendirmesini anında öğrenin! Saniyeler içinde, yorumların genel eğilimi, aldıkları puanlar ve genel değerlendirme karşınızda olacak.</p>
+        <p>Nokta atış alışveriş yaparak zamandan ve paradan tasarruf edin. Artık alışverişin keyfini çıkarmak hiç bu kadar kolay olmamıştı!</p>
+        
+        <form id="imageForm" enctype="multipart/form-data">
+            <label for="imageInput">Resim Seç:</label>
+            <div id="dropZone" class="drop-zone" onclick="document.getElementById('imageInput').click()">
+                <img src="https://img.icons8.com/ios/50/000000/plus-math.png" alt="plus icon">
+            </div>
+            <input type="file" id="imageInput" name="image" accept="image/*" required onchange="previewImage(event)" style="display:none;">
+            <div class="preview-container">
+                <img id="imagePreview" class="preview-image" alt="Image Preview">
+            </div>
+            
+            <label for="productNameInput">Ürün Adı veya Kodu (isteğe bağlı):</label>
+            <input type="text" id="productNameInput" name="product_name" placeholder="Ürün adı veya kodu girin">
+
+            <button type="button" onclick="generateContent()">Gönder</button>
+        </form>
+
+        <!-- AI Loading Animation -->
+        <div id="loading" class="ai-loader" style="display: none;">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path id="brainPath" d="M100 30 C130 30 150 50 150 80 C150 110 130 130 100 130 C70 130 50 110 50 80 C50 50 70 30 100 30" 
+                      fill="none" stroke="#87CEFA" stroke-width="3"/>
+                
+                <line x1="75" y1="60" x2="125" y2="100" stroke="#87CEFA" stroke-width="1"/>
+                <line x1="75" y1="100" x2="125" y2="60" stroke="#87CEFA" stroke-width="1"/>
+                <line x1="100" y1="40" x2="100" y2="120" stroke="#87CEFA" stroke-width="1"/>
+                
+                <circle class="node" cx="75" cy="60" r="5" fill="#87CEFA"/>
+                <circle class="node" cx="125" cy="60" r="5" fill="#87CEFA"/>
+                <circle class="node" cx="75" cy="100" r="5" fill="#87CEFA"/>
+                <circle class="node" cx="125" cy="100" r="5" fill="#87CEFA"/>
+                <circle class="node" cx="100" cy="40" r="5" fill="#87CEFA"/>
+                <circle class="node" cx="100" cy="120" r="5" fill="#87CEFA"/>
+                
+                <text id="loadingText" x="50" y="180">lütfen bekleyiniz...</text>
+            </svg>
+        </div>
+
+        <div id="contentResult" class="comparison-result"></div>
+    </div>
+
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('imagePreview');
+                output.src = reader.result;
+                output.style.display = 'block';
+            };
+            if (event.target.files[0]) {
+                reader.readAsDataURL(event.target.files[0]);
+            } else {
+                document.getElementById('imagePreview').style.display = 'none';
+            }
+        }
+
+        function generateContent() {
+            document.getElementById("contentResult").innerText = "";
+            document.getElementById("contentResult").style.display = "none";
+            document.getElementById("loading").style.display = "block";
+            document.getElementById("loadingText").textContent = "Ürün algılanıyor...";
+
+            var formData = new FormData(document.getElementById("imageForm"));
+            var productName = document.getElementById("productNameInput").value;
+            formData.append("product_name", productName);
+
+            fetch("/generate-content", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Received data:", data);
+                document.getElementById("loadingText").textContent = "Analiz yapılıyor...";
+
+                setTimeout(() => {
+                    document.getElementById("loading").style.display = "none";
+                    document.getElementById("contentResult").innerText = data.content || "Bir hata oluştu. Lütfen tekrar deneyiniz.";
+                    document.getElementById("contentResult").style.display = "block";
+                    console.log("Content set:", document.getElementById("contentResult").innerText);
+                }, 2000);
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                document.getElementById("loading").style.display = "none";
+                document.getElementById("contentResult").innerText = "Bir hata oluştu: " + error;
+                document.getElementById("contentResult").style.display = "block";
+            });
+        }
+
+        ['dragover', 'dragleave', 'drop'].forEach(eventName => {
+            document.getElementById('dropZone').addEventListener(eventName, function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                if (eventName === 'dragover') {
+                    this.classList.add('dragover');
+                } else if (eventName === 'dragleave' || eventName === 'drop') {
+                    this.classList.remove('dragover');
+                }
+                if (eventName === 'drop') {
+                    document.getElementById('imageInput').files = event.dataTransfer.files;
+                    previewImage({ target: document.getElementById('imageInput') });
+                }
+            });
+        });
+
+        function animateBrain() {
+            const brain = document.getElementById('brainPath');
+            let t = 0;
+            setInterval(() => {
+                t += 0.05;
+                const newD = `M100 ${30 + Math.sin(t) * 5} C${130 + Math.sin(t+1) * 5} ${30 + Math.sin(t+2) * 5} ${150 + Math.sin(t+3) * 5} ${50 + Math.sin(t+4) * 5} ${150 + Math.sin(t+5) * 5} 80 C${150 + Math.sin(t+6) * 5} ${110 + Math.sin(t+7) * 5} ${130 + Math.sin(t+8) * 5} ${130 + Math.sin(t+9) * 5} 100 ${130 + Math.sin(t+10) * 5} C${70 + Math.sin(t+11) * 5} ${130 + Math.sin(t+12) * 5} ${50 + Math.sin(t+13) * 5} ${110 + Math.sin(t+14) * 5} ${50 + Math.sin(t+15) * 5} 80 C${50 + Math.sin(t+16) * 5} ${50 + Math.sin(t+17) * 5} ${70 + Math.sin(t+18) * 5} ${30 + Math.sin(t+19) * 5} 100 ${30 + Math.sin(t) * 5}`;
+                brain.setAttribute('d', newD);
+            }, 50);
+        }
+        animateBrain();
+    </script>
+</body>
+</html>
+{% endblock %}

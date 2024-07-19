@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+   
+    
+</head>
+
+
+<body>
+    <div class="user-form-container">
+        <div class="user-form">
+        <form method="POST">
+            <!-- Giriş formu alanları -->
+            <div class="form-group">
+                <label for="username">Kullanıcı Adı:</label>
+                <input type="text" id="username" name="username" placeholder="Kullanıcı adını girin" required>
+            </div>
+            <div class="form-group">
+            <label for="password">Parola:</label>
+            <input type="password" id="password" name="password" placeholder="Parolanızı girin" required>
+        </div>
+            <button type="submit">Giriş Yap</button>
+
+            {% if error_message %}
+                <p class="error">{{ error_message }}</p>
+            {% endif %}
+
+            {% if user %}
+                <h1>Zaten oturum açtınız. Çıkış yaparak kayıt olabilirsiniz.</h1>
+                <div id="slogan">
+                    <a href="/cikis">Çıkış Yap</a>
+                </div>
+            {% endif %}
+        </form>
+    </div>
+</body>
+
+</html>
+{% endblock %}

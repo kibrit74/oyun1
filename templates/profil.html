@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}...Profil Giriş...{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yapay Zeka Destekli Ürün Arama Motoru</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    
+</head>
+
+<body>
+    <div class="info-form">
+        <h3>Merhaba!</h3>
+        <p>Yapay Zeka Gücüyle Alışverişi Yeniden Keşfet uygulamamıza hoş geldiniz. Bu uygulama, gönderdiğiniz fotoğraflara bakarak ürünleri tanıyan ve değerlendiren bir yapay zeka modeli üzerine kurulmuştur.</p>
+
+        <p>Eğer henüz üye değilseniz, lütfen "Üye Ol" butonuna tıklayarak kayıt işlemini gerçekleştirin. Kayıt olduktan sonra "Giriş Yap" butonu ile uygulamaya giriş yapabilir ve ürün değerlendirmelerinizi yapabilirsiniz.</p>
+
+        <h3>Üye Ol</h3>
+        <p>Bu butona tıklayarak uygulamamıza üye olabilir ve yapay zeka destekli ürün arama motoru deneyimine katılabilirsiniz. Bilgilerinizi güvenli bir şekilde saklıyoruz.</p>
+
+        <h3>Giriş Yap</h3>
+        <p>Eğer zaten üyeyseniz, "Giriş Yap" butonu ile kayıtlı bilgilerinizle uygulamaya giriş yapabilir, ürünleri değerlendirebilir ve değerlendirmelerinizi takip edebilirsiniz.</p>
+
+        <p>Uygulamamızı kullanırken keyifli vakit geçirmenizi dileriz. Sorularınız veya sorunlarınız için her zaman bize ulaşabilirsiniz.</p>
+
+        <div class="search-bar">
+            <button onclick="aramaYonlendir()">Aramaya Başla</button>
+        </div>
+    </div>
+</body>
+
+</html>
+{% endblock %}

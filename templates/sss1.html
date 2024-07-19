@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}SSS{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="/static/css/styles.css">
+<div id="profile-container">
+    <form>
+    <div>
+        <h2>FindCompareAI: Sıkça Sorulan Sorular</h2>
+    </div>
+        <div>
+            <h4>Üyelik İşlemleri</p>
+               <p> S: Uygulamanıza nasıl üye olabilirim?
+                C: Ana sayfamızdaki "Üye Ol" butonuna tıklayın. Açılan sayfada kişisel bilgilerinizi girin ve kayıt işlemini tamamlayın.</p>
+           
+        </div>
+
+        <div>
+            <h4>S: Üyelik neden gerekli?</p>
+            <p>C: Üyelik, size özel hizmetler sunabilmemiz, tercihlerinizi kaydedebilmemiz ve alışveriş deneyiminizi kişiselleştirebilmemiz için gereklidir.</p>
+        </div>
+
+        <div >
+            <h4>Fotoğraf Yükleme ve Analiz</h4>
+            <p>S: Ürün fotoğrafını nasıl gönderebilirim?</p>
+            <p>Uygulamadaki "Fotoğraf Gönder" bölümünden istediğiniz ürünün fotoğrafını kolayca yükleyebilirsiniz.</p>
+            <p>S: Yapay zeka modeliniz nasıl çalışıyor?</p>
+            <p>C: Modelimiz, yüklediğiniz fotoğrafı analiz ederek ürünü tanır, ilgili yorumları tarar ve ürünün olumlu/olumsuz özelliklerini belirler.</p>
+            
+
+        </div>
+
+        <div >
+            <h4>Sonuçlar ve Karşılaştırmalar</h4>
+            <p>S: Analiz sonuçları neleri içerir?</p>
+            <p>C: Sonuçlar; en uygun fiyatı, en kaliteli ürün önerilerini ve kullanıcı değerlendirmelerinden çıkarılan önemli özellikleri içerir.</p>
+            <p>S: Ürün karşılaştırma özelliği nasıl çalışır?</p>
+            <p>C: Uygulamamız, yüklediğiniz ürün fotoğrafına benzer ürünleri tanır ve bunları özellikler ile kullanıcı değerlendirmeleri açısından karşılaştırır.
+                Kullanım Detayları</p>
+
+        </div>
+
+        <div >
+            <h4>Kullanım Detayları</h4>
+            <p>S: Kaç ürünü aynı anda karşılaştırabilirim?</p>
+            <p>C: Şu an için en fazla 2 ürünü aynı anda karşılaştırabilirsiniz. Bu, detaylı ve odaklanmış bir karşılaştırma yapmanıza olanak tanır.</p>
+            <p>S: Üyelik ücretlimi?</p>
+            <p>C: Hayıy üyelik tamamen ücretsizdir.</p>
+        </div>
+
+       
+        <button id="daha-fazla-btn" type="button" onclick="window.location.href='/sss'" class="nav-button">Form Sayfasına Git</button>
+       
+    </form>
+</div>
+{% endblock %}

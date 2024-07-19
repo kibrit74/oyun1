@@ -1,0 +1,17 @@
+{
+    "product1": {
+        "name": "Xiaomi Mi TV Stick Android TV ",
+        "google_data": {
+            "reviews": [],
+            "product_details": {
+                "rating": "Değerlendirme puanı bulunamadı"
+            }
+        }
+    },
+    "product2": {
+        "name": "Xiaomi Mi Box S 4k  ",
+        "google_data": {
+            "error": "Error: Page.evaluate: Execution context was destroyed, most likely because of a navigation - Xiaomi Mi Box S 4k  "
+        }
+    }
+}
